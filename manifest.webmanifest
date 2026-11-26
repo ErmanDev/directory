@@ -1,0 +1,12 @@
+{
+  "name": "VNHS Campus Navigator",
+  "short_name": "Campus Map",
+  "description": "Find classrooms, sections, advisers and offices with an interactive 2D school map.",
+  "start_url": "./index.html#/home",
+  "display": "standalone",
+  "background_color": "#f6f3ec",
+  "theme_color": "#1d4e89",
+  "icons": [
+    { "src": "assets/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

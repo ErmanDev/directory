@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>VNHS Campus Navigator</title>
+  <meta name="description" content="Find classrooms, sections, advisers and offices on campus with an interactive 2D school map and walking directions.">
+  <meta name="theme-color" content="#1d4e89">
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="topbar">
+    <a class="brand" href="#/home" aria-label="VNHS Campus Navigator home">
+      <img src="assets/icon.svg" alt="" width="34" height="34">
+      <span class="brand-text"><small>VNHS</small><strong>Campus Navigator</strong></span>
+    </a>
+    <button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+      <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+    <nav id="site-nav" class="site-nav" aria-label="Main">
+      <a href="#/home" data-nav="home">Home</a>
+      <a href="#/map" data-nav="map">School Map</a>
+      <a href="#/directory" data-nav="directory">Directory</a>
+      <a href="#/map?mode=directions" data-nav="directions">Directions</a>
+      <a href="#/about" data-nav="about">Help</a>
+    </nav>
+  </header>
+
+  <main id="main" tabindex="-1">
+
+    <!-- ============ HOME ============ -->
+    <section class="view view-home" data-view="home" hidden>
+      <div class="hero">
+        <div class="hero-text">
+          <p class="eyebrow">Welcome, visitors, students &amp; parents</p>
+          <h1>Find your way around campus.</h1>
+          <p class="lead">Search for a room number, section name, or adviser. You'll see where it is on the school map and how to walk there.</p>
+          <form class="search-box big" id="home-search" role="search" autocomplete="off">
+            <label class="sr-only" for="home-q">Search rooms, sections or advisers</label>
+            <svg class="search-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+            <input id="home-q" type="search" placeholder="e.g. 116, Sampaguita, or Legario" aria-autocomplete="list" aria-controls="home-suggest">
+            <button class="btn btn-primary" type="submit">Search</button>
+            <div class="suggest" id="home-suggest" role="listbox" hidden></div>
+          </form>
+          <p class="try">Try:
+            <button type="button" class="chip" data-try="116">Room 116</button>
+            <button type="button" class="chip" data-try="Sampaguita">Sampaguita</button>
+            <button type="button" class="chip" data-try="Clinic">Clinic</button>
+            <button type="button" class="chip" data-try="Grade 11">Grade 11</button>
+          </p>
+        </div>
+        <a class="hero-map" href="#/map" aria-label="Open the school map">
+          <svg id="preview-map" role="img" aria-label="Preview of the 2D school map"></svg>
+          <span class="hero-map-cta">Open the 2D School Map →</span>
+        </a>
+      </div>
+
+      <div class="container">
+        <h2 class="section-title">What would you like to do?</h2>
+        <div class="feature-grid">
+          <a class="feature" href="#/map">
+            <span class="feature-ico ico-map" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"/><path d="M9 4v14M15 6v14"/></svg></span>
+            <strong>View 2D School Map</strong>
+            <span>Tap any building or room to see what's inside.</span>
+          </a>
+          <a class="feature" href="#/directory">
+            <span class="feature-ico ico-search" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></span>
+            <strong>Search Directory</strong>
+            <span>Look up rooms by number, section, or adviser.</span>
+          </a>
+          <a class="feature" href="#/map?mode=directions">
+            <span class="feature-ico ico-route" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M8.5 18H15a3 3 0 0 0 0-6H9a3 3 0 0 1 0-6h6.5"/></svg></span>
+            <strong>Get Directions</strong>
+            <span>Pick a starting point and see the walking route.</span>
+          </a>
+          <a class="feature" href="#/about">
+            <span class="feature-ico ico-help" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14M12 17.5v.01"/></svg></span>
+            <strong>How to Use</strong>
+            <span>Quick guide, program names and map legend.</span>
+          </a>
+        </div>
+
+        <h2 class="section-title">Popular places</h2>
+        <div class="quick-grid" id="quick-places"></div>
+      </div>
+    </section>
+
+    <!-- ============ MAP ============ -->
+    <section class="view view-map" data-view="map" hidden>
+      <aside class="panel" id="panel" data-state="peek" aria-label="Map panel">
+        <button class="sheet-handle" id="sheet-handle" aria-label="Expand panel" aria-expanded="false"><span></span></button>
+        <div class="panel-top">
+          <div class="search-box" id="map-search-box">
+            <label class="sr-only" for="map-q">Search the map</label>
+            <svg class="search-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+            <input id="map-q" type="search" placeholder="Search room, section, adviser…" autocomplete="off" aria-autocomplete="list" aria-controls="map-suggest">
+            <div class="suggest" id="map-suggest" role="listbox" hidden></div>
+          </div>
+          <div class="tabs" role="tablist">
+            <button role="tab" id="tab-info" aria-selected="true" aria-controls="pane-info">Room Info</button>
+            <button role="tab" id="tab-dir" aria-selected="false" aria-controls="pane-dir">Directions</button>
+          </div>
+        </div>
+
+        <div class="panel-body">
+          <div id="pane-info" role="tabpanel" aria-labelledby="tab-info">
+            <div class="empty-state" id="info-empty">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+              <p><strong>Select a place</strong></p>
+              <p>Tap a room or building on the map, or search above, to see its section, adviser and floor.</p>
+            </div>
+            <div id="info-card"></div>
+          </div>
+          <div id="pane-dir" role="tabpanel" aria-labelledby="tab-dir" hidden>
+            <form id="dir-form" class="dir-form" autocomplete="off">
+              <div class="dir-field">
+                <span class="dir-dot a" aria-hidden="true">A</span>
+                <div class="search-box sm">
+                  <label class="sr-only" for="dir-from">Starting point</label>
+                  <input id="dir-from" type="search" placeholder="Starting point" aria-autocomplete="list" aria-controls="from-suggest">
+                  <div class="suggest" id="from-suggest" role="listbox" hidden></div>
+                </div>
+                <button type="button" class="icon-btn" id="pick-start" title="Choose starting point on the map" aria-label="Choose starting point on the map">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg>
+                </button>
+              </div>
+              <div class="dir-field">
+                <span class="dir-dot b" aria-hidden="true">B</span>
+                <div class="search-box sm">
+                  <label class="sr-only" for="dir-to">Destination</label>
+                  <input id="dir-to" type="search" placeholder="Destination" aria-autocomplete="list" aria-controls="to-suggest">
+                  <div class="suggest" id="to-suggest" role="listbox" hidden></div>
+                </div>
+                <button type="button" class="icon-btn" id="swap-btn" title="Swap start and destination" aria-label="Swap start and destination">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4v16M7 20l-3-3M7 20l3-3M17 20V4M17 4l-3 3M17 4l3 3"/></svg>
+                </button>
+              </div>
+              <div class="quick-start">
+                <span>Quick start:</span>
+                <button type="button" class="chip sm" data-from="girls-gate">Girls' Gate</button>
+                <button type="button" class="chip sm" data-from="boys-gate">Boys' Gate</button>
+                <button type="button" class="chip sm" data-from="court">Covered Court</button>
+                <button type="button" class="chip sm" data-from="school-canteen">Canteen</button>
+              </div>
+              <button type="submit" class="btn btn-primary btn-block">Show route</button>
+            </form>
+            <div id="dir-result" aria-live="polite"></div>
+          </div>
+        </div>
+      </aside>
+
+      <div class="map-wrap">
+        <svg id="map" class="map-svg" tabindex="0" role="application" aria-label="Interactive 2D school map. Drag to move, scroll or pinch to zoom, tap a place to see details."></svg>
+        <div class="map-controls" role="group" aria-label="Map zoom">
+          <button class="ctrl" id="zoom-in" aria-label="Zoom in">+</button>
+          <button class="ctrl" id="zoom-out" aria-label="Zoom out">−</button>
+          <button class="ctrl" id="zoom-fit" aria-label="Show whole map" title="Show whole map">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
+          </button>
+        </div>
+        <details class="legend" id="legend">
+          <summary>Legend</summary>
+          <ul>
+            <li><i class="sw sw-classroom"></i>Classroom</li>
+            <li><i class="sw sw-office"></i>Office</li>
+            <li><i class="sw sw-lab"></i>Lab / Workshop</li>
+            <li><i class="sw sw-facility"></i>Facility</li>
+            <li><i class="sw sw-canteen"></i>Canteen</li>
+            <li><i class="sw sw-cr"></i>Comfort Room</li>
+            <li><i class="sw sw-park"></i>Park / Garden</li>
+            <li><i class="sw sw-court"></i>Court / Quadrangle</li>
+            <li><i class="fb f1">1F</i><i class="fb f2">2F</i><i class="fb f3">3F</i><i class="fb f4">4F</i>Floor</li>
+          </ul>
+        </details>
+
+        <div class="map-hint" id="map-hint" hidden>
+          <span>Tap where you are now to set your starting point</span>
+          <button class="btn btn-ghost sm" id="cancel-pick">Cancel</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ DIRECTORY ============ -->
+    <section class="view view-directory" data-view="directory" hidden>
+      <div class="container">
+        <header class="page-head">
+          <h1>School Directory</h1>
+          <p>Search by <strong>room number</strong>, <strong>section name</strong>, or <strong>adviser's name</strong>.</p>
+        </header>
+        <form class="search-box big" id="dir-search" role="search" autocomplete="off">
+          <label class="sr-only" for="directory-q">Search the directory</label>
+          <svg class="search-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+          <input id="directory-q" type="search" placeholder="e.g. 52, Einstein, Montejo, Clinic">
+          <button class="btn btn-primary" type="submit">Search</button>
+        </form>
+        <div class="filters" role="radiogroup" aria-label="Filter results">
+          <button class="chip" role="radio" aria-checked="true" data-filter="all">All</button>
+          <button class="chip" role="radio" aria-checked="false" data-filter="jhs">Junior High (G7–10)</button>
+          <button class="chip" role="radio" aria-checked="false" data-filter="shs">Senior High (G11–12)</button>
+          <button class="chip" role="radio" aria-checked="false" data-filter="offices">Offices &amp; Facilities</button>
+          <button class="chip" role="radio" aria-checked="false" data-filter="labs">Labs</button>
+        </div>
+        <p class="result-count" id="result-count" aria-live="polite"></p>
+        <div class="results" id="results"></div>
+        <div class="more-wrap"><button class="btn btn-ghost" id="show-more" hidden>Show more</button></div>
+      </div>
+    </section>
+
+    <!-- ============ ABOUT / HELP ============ -->
+    <section class="view view-about" data-view="about" hidden>
+      <div class="container narrow">
+        <header class="page-head">
+          <h1>About &amp; Help</h1>
+          <p>The VNHS Campus Navigator helps visitors, new students, transferees and parents find classrooms, offices and other school facilities.</p>
+        </header>
+
+        <h2>How to use</h2>
+        <ol class="howto">
+          <li><strong>Search.</strong> Type a room number (<em>116</em>), a section (<em>Shin Saimdang</em>), an adviser (<em>Ducao-Visto</em>) or a place (<em>Clinic</em>) in any search bar. You can also type a grade, like <em>Grade 10</em>.</li>
+          <li><strong>See the details.</strong> Pick a result to see the room number, the sections in it, their advisers, and the building and floor.</li>
+          <li><strong>Find it on the map.</strong> Press <em>View on map</em>. The room is marked with a pin. Drag to move the map, and scroll or pinch to zoom.</li>
+          <li><strong>Get directions.</strong> Press <em>Directions</em>, then choose where you are: a gate, a landmark, or a spot you tap on the map. The walking route is drawn from <b>A</b> (start) to <b>B</b> (destination).</li>
+          <li><strong>Follow the steps.</strong> The Directions panel lists each turn, with distances and nearby landmarks to look out for.</li>
+        </ol>
+
+        <h2>Reading the map</h2>
+        <ul class="tips">
+          <li>Some buildings have more than one floor. On the map, each floor is drawn as its own row or column, marked with a colored badge: <i class="fb f1">1F</i> <i class="fb f2">2F</i> <i class="fb f3">3F</i> <i class="fb f4">4F</i>.</li>
+          <li>For a room on an upper floor, the route ends at the building entrance. From there, take the stairs up to the floor shown.</li>
+          <li>Walking distances and times are estimates.</li>
+        </ul>
+
+        <h2>Program abbreviations</h2>
+        <dl class="glossary" id="glossary"></dl>
+
+        <h2>Something wrong?</h2>
+        <p>Room assignments change every school year. If you find a mistake, please tell the school office. Authorized personnel can update the information from the <a href="#/admin">Admin page</a>.</p>
+      </div>
+    </section>
+
+    <!-- ============ ADMIN ============ -->
+    <section class="view view-admin" data-view="admin" hidden>
+      <div class="container">
+        <header class="page-head">
+          <h1>Manage Room Data</h1>
+          <p>For authorized personnel only. Update room assignments, section names, advisers and notes.</p>
+        </header>
+
+        <form id="admin-lock" class="card lock-card" autocomplete="off">
+          <h2>Sign in</h2>
+          <label for="admin-pass">Passcode</label>
+          <input id="admin-pass" type="password" required>
+          <p class="form-error" id="lock-error" role="alert" hidden>Incorrect passcode.</p>
+          <button class="btn btn-primary" type="submit">Unlock</button>
+        </form>
+
+        <div id="admin-app" hidden>
+          <div class="notice" id="admin-notice"></div>
+          <div class="admin-toolbar">
+            <button class="btn btn-primary" id="dl-js">Download room-info.js</button>
+            <button class="btn btn-ghost" id="dl-json">Export JSON</button>
+            <label class="btn btn-ghost file-btn">Import JSON<input type="file" id="import-json" accept=".json,application/json" hidden></label>
+            <button class="btn btn-ghost" id="change-pass">Change passcode</button>
+            <button class="btn btn-danger-ghost" id="reset-local">Discard local changes</button>
+            <button class="btn btn-ghost" id="lock-btn">Lock</button>
+          </div>
+          <div class="admin-grid">
+            <div class="card admin-list">
+              <label class="sr-only" for="admin-filter">Filter rooms</label>
+              <input id="admin-filter" type="search" placeholder="Filter rooms…">
+              <ul id="admin-rooms" role="listbox" aria-label="Rooms"></ul>
+            </div>
+            <form class="card admin-form" id="admin-form" autocomplete="off">
+              <p class="muted" id="admin-placeholder">Choose a room from the list to edit it.</p>
+              <div id="admin-fields" hidden>
+                <h2 id="admin-title"></h2>
+                <div class="form-row">
+                  <div><label for="f-program">Program</label><input id="f-program" list="program-list"><datalist id="program-list"></datalist></div>
+                  <div><label for="f-floor">Floor</label>
+                    <select id="f-floor"><option value="">—</option><option value="1">1st Floor</option><option value="2">2nd Floor</option><option value="3">3rd Floor</option><option value="4">4th Floor</option></select>
+                  </div>
+                </div>
+                <label for="f-building">Building</label><input id="f-building">
+                <label for="f-head">Head / Person in charge</label><input id="f-head">
+                <label for="f-notes">Notes</label><textarea id="f-notes" rows="2"></textarea>
+                <label for="f-aliases">Extra search words <span class="muted">(comma-separated)</span></label><input id="f-aliases">
+                <fieldset class="sections-edit">
+                  <legend>Sections &amp; advisers</legend>
+                  <div id="f-sections"></div>
+                  <button type="button" class="btn btn-ghost sm" id="add-section">+ Add section</button>
+                </fieldset>
+                <div class="form-actions">
+                  <button class="btn btn-primary" type="submit">Save changes</button>
+                  <button class="btn btn-ghost" type="button" id="revert-room">Revert</button>
+                  <span class="save-msg" id="save-msg" role="status"></span>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>VNHS Campus Navigator · <a href="#/about">Help</a> · <a href="#/admin">Admin</a></p>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+  <script src="js/map-data.js"></script>
+  <script src="js/room-info.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/pathfinder.js"></script>
+  <script src="js/map.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
