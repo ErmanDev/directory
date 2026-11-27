@@ -1,17 +1,17 @@
-# VNHS Campus Navigator: User Guide
+# VNHS NaviGo: User Guide
 
-The VNHS Campus Navigator is a website that helps visitors, new students, transferees and parents find classrooms, offices and other facilities on campus. It has an interactive 2D school map, a searchable directory of rooms, sections and advisers, and step-by-step walking directions.
+VNHS NaviGo is a website that helps visitors, new students, transferees and parents find classrooms, offices and other facilities on campus. It has an interactive 2D school map, a searchable directory of rooms, sections and advisers, and step-by-step walking directions.
 
 This guide has two parts:
 
-- **[Part 1: Using the Navigator](#part-1-using-the-navigator)** is for everyone: visitors, students, parents and staff.
+- **[Part 1: Using NaviGo](#part-1-using-navigo)** is for everyone: visitors, students, parents and staff.
 - **[Part 2: Managing room data](#part-2-managing-room-data-authorized-personnel)** is for the staff who keep the room information up to date.
 
 For installation and file details, see the [README](README.md).
 
 ---
 
-## Part 1: Using the Navigator
+## Part 1: Using NaviGo
 
 ### The menu
 
@@ -126,7 +126,7 @@ The **Help** page has a short how-to and the program abbreviations:
 
 ### 6. Using it on a phone, and offline
 
-- **Add to home screen:** in your phone's browser menu, choose **Add to Home screen** (Android) or **Share › Add to Home Screen** (iPhone). The Navigator then opens like an app, with the school logo as its icon.
+- **Add to home screen:** in your phone's browser menu, choose **Add to Home screen** (Android) or **Share › Add to Home Screen** (iPhone). NaviGo then opens like an app, with the school logo as its icon.
 - **Offline:** after you have opened the site once (from the school's website address), the map, directory and directions keep working without internet.
 
 ---

@@ -222,7 +222,7 @@
   }
 
   function exportJS() {
-    return '/*\n * Room assignments for the VNHS Campus Navigator.\n * Generated from the Admin page on ' + new Date().toISOString().slice(0, 10) +
+    return '/*\n * Room assignments for VNHS NaviGo.\n * Generated from the Admin page on ' + new Date().toISOString().slice(0, 10) +
       '.\n * Replace js/room-info.js on the web server with this file to publish the changes.\n */\nwindow.ROOM_INFO = ' +
       JSON.stringify(info, null, 2) + ';\n';
   }
