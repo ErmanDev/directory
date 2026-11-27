@@ -42,7 +42,7 @@
   }
 
   /* ---------- North-west block ---------- */
-  row([[4, 18, 82], [5, 82, 142], [6, 142, 200], [7, 200, 260],
+  row([[4, 18, 82], [5, 82, 142], [6, 142, 200, 'Bag Procurement Office', 'office'], [7, 200, 260, 'Supply Office', 'office'],
        ['vacant-top', 260, 320, 'Vacant Room', 'blank']], 8, 65, 's');
   P('memo', 'Memographing Room', 'facility', 15, 65, 70, 122, 's');
   P('jhs-registrar', "JHS Registrar's Office", 'office', 165, 80, 262, 172, 'w');
@@ -63,7 +63,7 @@
   P('esp-dept', 'ESP Dept. Office', 'office', 592, 100, 645, 160, 'e');
   P('storage-nw', '', 'blank', 592, 160, 645, 265, null);
   P('radio', 'Radio Station', 'facility', 592, 265, 645, 348, 'e');
-  row([['slrmd', 393, 443, 'SLRMD Center', 'office'],
+  row([['slrmd', 393, 443, 'SLRMD Office', 'office'],
        ['media-arts', 443, 490, 'Media Arts', 'facility'],
        ['sslg', 490, 540, 'SSLG Office', 'office'],
        ['lounge', 540, 588, 'Student Lounge', 'facility']], 418, 480, 's');
@@ -77,9 +77,8 @@
   P('pta', 'PTA Office', 'office', 22, 880, 90, 945, 'n');
   P('he-office', 'HE Office', 'office', 105, 852, 215, 950, 'n');
   P('r17', 'TLE Bakery & Room 17', 'lab', 220, 862, 325, 952, 'n');
-  P('r18-blank', '', 'blank', 325, 885, 357, 952, null);
+  P('math-dept', 'Math Dept. Office', 'office', 325, 885, 357, 952, 'n');
   row([[19, 357, 413], [20, 413, 467], [21, 467, 520], [22, 520, 572], [23, 572, 625], [24, 625, 678]], 885, 952, 'n');
-  P('math-dept', 'Math Dept. Office', 'office', 295, 960, 375, 1030, 'e');
   P('spa-sps', 'SPA/SPS Skills & Training Classrooms', 'zone', 20, 1045, 572, 1290, 'n');
   P('wall-sw', '', 'structure', 580, 960, 590, 1400, null);
   P('abm-canteen', 'ABM Canteen', 'canteen', 592, 1022, 677, 1303, 'e');
@@ -88,7 +87,7 @@
   row([[25, 662, 752], [26, 752, 843], [27, 843, 935], [28, 935, 1030],
        ['cr-south-1', 1035, 1080, 'CR', 'cr'],
        [29, 1085, 1167], [30, 1167, 1255],
-       [31, 1255, 1342, 'G7 Curriculum Office', 'office'],
+       [31, 1255, 1342, 'G7 Faculty Room', 'office'],
        [32, 1342, 1432], [33, 1432, 1535],
        ['cr-south-2', 1540, 1585, 'CR', 'cr'],
        [34, 1588, 1665], [35, 1665, 1745], [36, 1745, 1815], [37, 1815, 1892], [38, 1892, 1970]],
@@ -99,13 +98,13 @@
        ['ap-dept', 790, 855, 'AP Dept. Office', 'office'],
        ['tle-dept', 855, 915, 'TLE Dept. Office', 'office'],
        [97, 915, 977], [96, 977, 1040],
-       [95, 1040, 1103, 'G10 Curriculum Office', 'office'],
+       [95, 1040, 1103, 'G10 Faculty Room', 'office'],
        ['small-canteen', 1103, 1160, 'Small Canteen', 'canteen'],
        ['tle-storage', 1160, 1222, 'TLE Storage Room', 'facility'],
        [93, 1222, 1285], [92, 1285, 1345], [91, 1345, 1405], [90, 1405, 1465],
        [89, 1465, 1525], [88, 1525, 1585], [87, 1585, 1645], [86, 1645, 1705],
        [85, 1705, 1765, 'Filipino Dept. Office', 'office'],
-       ['eng-dept', 1765, 1823, 'English Dept. Office', 'office'],
+       [84, 1765, 1823, 'English Dept. Office', 'office'],
        [83, 1823, 1882], [82, 1882, 1940]], 8, 75, 's');
   P('fil-park', 'Fil. Park', 'park', 1940, 8, 1992, 90);
 
@@ -117,9 +116,9 @@
   P('r116', 'Room 116', 'classroom', 838, 245, 945, 353, 'e', { fl: 2, bld: SPFL });
 
   var LIB = 'Library Building';
-  P('library', 'Library', 'facility', 708, 368, 822, 480, 'w', { fl: 1, bld: LIB });
-  P('data-center', 'Data Center', 'facility', 708, 480, 822, 620, 'w', { fl: 1, bld: LIB });
-  P('project-hub', 'Project Hub', 'facility', 708, 620, 822, 790, 'w', { fl: 1, bld: LIB });
+  P('r108', 'Library', 'facility', 708, 368, 822, 480, 'w', { fl: 1, bld: LIB });
+  P('r109', 'Data Center', 'facility', 708, 480, 822, 620, 'w', { fl: 1, bld: LIB });
+  P('r110', 'VNHS HD Project Hub', 'facility', 708, 620, 822, 790, 'w', { fl: 1, bld: LIB });
   P('r113', 'Room 113', 'classroom', 822, 372, 942, 580, 'e', { fl: 2, bld: LIB });
   P('r112', 'Room 112', 'classroom', 822, 580, 942, 795, 'e', { fl: 2, bld: LIB });
 
@@ -168,7 +167,7 @@
   row([[81, 1880, 1953]], 93, 183, 'w');
   row([[80, 1880, 1955]], 183, 272, 'w');
   row([[79, 1880, 1955]], 272, 358, 'w');
-  P('r78', 'G9 Curriculum Office', 'office', 1880, 358, 1935, 450, 'w');
+  P('r78', 'G9 Faculty Room', 'office', 1880, 358, 1935, 450, 'w');
   P('guidance', 'Guidance Office', 'office', 1935, 358, 1998, 450, 's');
   P('r76', 'Room 76', 'classroom', 1890, 615, 1948, 693, 'w');
   P('r77', 'Room 77', 'classroom', 1890, 693, 1948, 752, 'w');

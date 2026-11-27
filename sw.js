@@ -1,7 +1,7 @@
 /* Offline support: caches the site so the map works without internet after the first visit. */
-var CACHE = 'vnhs-nav-v5';
+var CACHE = 'vnhs-nav-v6';
 var FILES = [
-  './', './index.html', './css/styles.css', './manifest.webmanifest', './assets/icon.svg',
+  './', './index.html', './css/styles.css', './manifest.webmanifest', './assets/logo-96.png', './assets/logo-192.png',
   './js/map-data.js', './js/room-info.js', './js/store.js', './js/pathfinder.js',
   './js/map.js', './js/app.js'
 ];

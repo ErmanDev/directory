@@ -111,11 +111,6 @@
     el('image', { href: noise, width: 48, height: 48, opacity: 0.8 }, conc);
     el('path', { d: 'M48 0H0V48', fill: 'none', stroke: 'rgba(0,0,0,.09)', 'stroke-width': 1 }, conc);
 
-    var brick = el('pattern', { id: P + 'brick', width: 44, height: 22, patternUnits: 'userSpaceOnUse' }, defs);
-    el('rect', { width: 44, height: 22, fill: '#ddc7a6' }, brick);
-    el('image', { href: noise, width: 44, height: 22, opacity: 0.8, preserveAspectRatio: 'none' }, brick);
-    el('path', { d: 'M0 .5H44M0 11.5H44M.5 0V11M22.5 11V22', fill: 'none', stroke: 'rgba(120,85,45,.25)', 'stroke-width': 1 }, brick);
-
     var roof = el('pattern', { id: P + 'roof', width: 64, height: 64, patternUnits: 'userSpaceOnUse' }, defs);
     el('image', { href: noise, width: 64, height: 64, opacity: 0.9 }, roof);
     el('path', { d: 'M-8 8L8 -8M0 64L64 0M56 72L72 56M-8 40L40 -8M24 72L72 24', stroke: 'rgba(255,255,255,.28)', 'stroke-width': 1.2 }, roof);
@@ -152,8 +147,9 @@
       var dest = p.type !== 'structure' && !(p.type === 'blank' && !p.label);
       if (p.type === 'park' || p.type === 'court' || p.type === 'plaza') {
         g = el('g', { class: 'place area area-' + p.type, 'data-id': p.id }, L.areas);
-        var fill = p.type === 'park' ? 'grass' : p.type === 'court' ? 'concrete' : 'brick';
-        base = el('rect', { class: 'base', x: p.x, y: p.y, width: p.w, height: p.h, rx: 4, fill: 'url(#' + P + fill + ')', stroke: p.type === 'park' ? '#5e8f44' : '#9b8f7d', 'stroke-width': 2 }, g);
+        var grassy = p.type === 'park' || p.type === 'plaza';
+        var fill = grassy ? 'grass' : 'concrete';
+        base = el('rect', { class: 'base', x: p.x, y: p.y, width: p.w, height: p.h, rx: 4, fill: 'url(#' + P + fill + ')', stroke: grassy ? '#5e8f44' : '#9b8f7d', 'stroke-width': 2 }, g);
         if (p.type === 'park') drawTrees(g, p);
         if (p.type === 'court') drawCourt(g);
         if (p.type === 'plaza') drawQuad(g, p);
@@ -220,7 +216,34 @@
     var cx = p.x + 70, cy = p.y + p.h / 2;
     el('circle', { cx: cx, cy: cy, r: 26, fill: '#c9b08a', stroke: '#9b8463', 'stroke-width': 2, 'pointer-events': 'none' }, g);
     el('line', { x1: cx, y1: cy, x2: cx, y2: cy - 46, stroke: '#5b5146', 'stroke-width': 3, 'pointer-events': 'none' }, g);
-    el('path', { d: 'M' + cx + ' ' + (cy - 46) + 'h22l-5 7 5 7h-22z', fill: '#2f6fb3', 'pointer-events': 'none' }, g);
+    drawPhFlag(g, cx + 1.5, cy - 46);
+  }
+
+  /* Philippine flag (36 x 18) with its hoist edge at (x, y): blue over red, white triangle,
+     golden sun with 8 rays and three stars. */
+  function drawPhFlag(parent, x, y) {
+    var W = 36, H = 18, tip = H * 0.866, GOLD = '#fcd116';
+    var f = el('g', { transform: 'translate(' + x + ' ' + y + ')', 'pointer-events': 'none' }, parent);
+    el('rect', { x: 0, y: 0, width: W, height: H / 2, fill: '#0038a8' }, f);
+    el('rect', { x: 0, y: H / 2, width: W, height: H / 2, fill: '#ce1126' }, f);
+    el('path', { d: 'M0 0L' + tip.toFixed(2) + ' ' + H / 2 + 'L0 ' + H + 'Z', fill: '#fff' }, f);
+    var sx = tip / 3, sy = H / 2, rays = '';
+    for (var i = 0; i < 8; i++) {
+      var a = i * Math.PI / 4;
+      rays += 'M' + (sx + Math.cos(a) * 2.2).toFixed(2) + ' ' + (sy + Math.sin(a) * 2.2).toFixed(2) +
+              'L' + (sx + Math.cos(a) * 3.6).toFixed(2) + ' ' + (sy + Math.sin(a) * 3.6).toFixed(2);
+    }
+    el('path', { d: rays, stroke: GOLD, 'stroke-width': 0.8, 'stroke-linecap': 'round' }, f);
+    el('circle', { cx: sx, cy: sy, r: 1.7, fill: GOLD }, f);
+    [[1.6, 1.8], [1.6, H - 1.8], [tip - 2.4, H / 2]].forEach(function (s) {
+      var d = '';
+      for (var k = 0; k < 10; k++) {
+        var r = k % 2 ? 0.45 : 1.1, t = -Math.PI / 2 + k * Math.PI / 5;
+        d += (k ? 'L' : 'M') + (s[0] + Math.cos(t) * r).toFixed(2) + ' ' + (s[1] + Math.sin(t) * r).toFixed(2);
+      }
+      el('path', { d: d + 'Z', fill: GOLD }, f);
+    });
+    el('rect', { x: 0, y: 0, width: W, height: H, fill: 'none', stroke: 'rgba(0,0,0,.25)', 'stroke-width': 0.6 }, f);
   }
 
   function drawLabel(layer, p) {

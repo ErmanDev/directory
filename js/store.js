@@ -79,7 +79,8 @@
     Object.keys(info).forEach(function (id) {
       if (byId[id]) return;
       var m = /^r(\d+)$/.exec(id);
-      var g = { id: id, label: m ? 'Room ' + m[1] : id, type: 'classroom', num: m ? Number(m[1]) : null, door: null };
+      var i = info[id] || {};
+      var g = { id: id, label: i.label || (m ? 'Room ' + m[1] : id), type: i.type || 'classroom', num: m ? Number(m[1]) : null, door: null };
       var e = makeEntry(id, g, info[id]);
       e.mapped = false;
       add(e);
@@ -188,6 +189,9 @@
 
   function save(id, data) {
     var clean = {};
+    var prev = info[id] || {};
+    if (prev.label) clean.label = prev.label; /* name and type of places not drawn on the map */
+    if (prev.type) clean.type = prev.type;
     ['program', 'building', 'head', 'notes'].forEach(function (k) { if (data[k]) clean[k] = String(data[k]).trim(); });
     if (data.floor) clean.floor = Number(data.floor);
     if (data.aliases && data.aliases.length) clean.aliases = data.aliases;
