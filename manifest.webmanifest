@@ -1,6 +1,6 @@
 {
-  "name": "VNHS Campus Navigator",
-  "short_name": "Campus Map",
+  "name": "VNHS NaviGo",
+  "short_name": "NaviGo",
   "description": "Find classrooms, sections, advisers and offices with an interactive 2D school map.",
   "start_url": "./index.html#/home",
   "display": "standalone",

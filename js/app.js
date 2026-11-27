@@ -65,7 +65,7 @@
       if (a.getAttribute('data-nav') === navKey) a.setAttribute('aria-current', 'page');
       else a.removeAttribute('aria-current');
     });
-    document.title = TITLES[r.view] + ' · VNHS Campus Navigator';
+    document.title = TITLES[r.view] + ' · VNHS NaviGo';
     closeMenu();
     if (changed && r.view !== 'map') window.scrollTo(0, 0);
     if (r.view === 'map') enterMap(r.params);

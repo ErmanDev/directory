@@ -1,4 +1,4 @@
-# VNHS Campus Navigator
+# VNHS NaviGo
 
 A school navigation website with an interactive 2D campus map, a searchable room directory, and walking directions.
 
