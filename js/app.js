@@ -201,7 +201,7 @@
       b.addEventListener('click', function () { go('directory', { q: b.getAttribute('data-try') }); });
     });
 
-    var quick = ['r103', 'guidance', 'library', 'school-canteen', 'shs-registrar', 'jhs-registrar', 'principal', 'court'];
+    var quick = ['r103', 'guidance', 'r108', 'school-canteen', 'shs-registrar', 'jhs-registrar', 'principal', 'court'];
     $('#quick-places').innerHTML = quick.map(function (id) {
       var e = Store.get(id);
       if (!e) return '';

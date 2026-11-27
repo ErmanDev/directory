@@ -13,8 +13,13 @@
  *   notes    : free text shown in the room details
  *   aliases  : extra search words, e.g. ["nurse", "first aid"]
  *   unmapped : true when the room is not drawn on the map yet
+ *   label    : name of a place that is not drawn on the map (e.g. "VNHS MPC Office")
+ *   type     : type of a place that is not drawn on the map (office, facility, classroom ...)
  */
 window.ROOM_INFO = {
+  "r6": { "notes": "Bag Procurement Office", "aliases": ["bag", "procurement"] },
+  "r7": { "notes": "Supply Office", "aliases": ["supply", "supplies"] },
+  "r13": { "type": "facility", "notes": "Garment Room", "aliases": ["garment", "sewing"], "unmapped": true },
   "r17": { "program": "BEC", "sections": [
     { "section": "G-9 Alexandrite", "adviser": "Mary Joy B. Embate" },
     { "section": "G-10 Marigold", "adviser": "Rizza Joy M. Clavel" } ],
@@ -154,7 +159,9 @@ window.ROOM_INFO = {
     { "section": "G-10 Joseph Pulitzer", "adviser": "Joylin A. Gimolatan" } ] },
   "r77": { "program": "SPJ", "sections": [
     { "section": "G-9 Carlos Romulo", "adviser": "Ronette Claire D. Ignoro" } ],
-    "notes": "Head of Prefect of Discipline and grade-level heads (G-7 to G-12): not yet assigned." },
+    "notes": "Office of the Prefect of Discipline",
+    "head": "Not yet assigned (also the grade-level heads, G-7 to G-12)",
+    "aliases": ["prefect", "discipline", "prefect of discipline", "pod"] },
   "r78": { "notes": "G-9 Faculty Room", "aliases": ["grade 9 faculty", "g9 faculty", "faculty room"] },
   "r81": { "sections": [
     { "section": "G-9 Pearl", "adviser": "" },
@@ -165,6 +172,7 @@ window.ROOM_INFO = {
   "r83": { "sections": [
     { "section": "G-9 Golden Beryl", "adviser": "Cesil Jane C. Sumayang" },
     { "section": "G-10 Orchids", "adviser": "Racquil R. Espiritu" } ] },
+  "r84": { "notes": "English Department Office", "aliases": ["english office"] },
   "r85": { "head": "Reynald Arnado", "notes": "Filipino Department Office", "aliases": ["filipino office"] },
   "r86": { "sections": [
     { "section": "G-9 Opal", "adviser": "Marvey Luz B. Zamora" },
@@ -190,7 +198,7 @@ window.ROOM_INFO = {
   "r93": { "sections": [
     { "section": "G-9 Ruby", "adviser": "Jonna P. Carreon" },
     { "section": "G-10 Tulips", "adviser": "Mary Cris C. Tangente" } ] },
-  "r95": { "head": "Mavis", "notes": "G-10 Faculty Room", "aliases": ["grade 10 faculty", "g10 faculty", "faculty room"] },
+  "r95": { "head": "Mavis Fay S. Sapico","notes": "G-10 Faculty Room", "aliases": ["grade 10 faculty", "g10 faculty", "faculty room"] },
   "r96": { "sections": [
     { "section": "G-9 Aquamarine", "adviser": "Liezyl P. Felisco" },
     { "section": "G-10 Sunflower", "adviser": "Irene Mae F. Seno" } ] },
@@ -205,6 +213,9 @@ window.ROOM_INFO = {
     { "section": "G-10 Aster", "adviser": "Elbert F. Lumiano" } ] },
   "r102": { "head": "Sody S. Cañete", "aliases": ["care center", "counseling"] },
   "r103": { "head": "Leonor T. Pampanga", "aliases": ["nurse", "first aid", "medical", "health"] },
+  "r108": { "aliases": ["books", "reading"] },
+  "r109": { "aliases": ["data center", "server"] },
+  "r110": { "aliases": ["project hub", "hd project hub"] },
   "r114": { "program": "SPFL", "sections": [
     { "section": "G-8 Seondeok", "adviser": "Ralph Anthony M. Pagdayon" } ] },
   "r115": { "program": "SPFL", "sections": [
@@ -258,15 +269,22 @@ window.ROOM_INFO = {
     { "section": "G-11 Magalang", "adviser": "Greythyl Jane P. Ausan" },
     { "section": "G-12 Peace", "adviser": "Joshua James P. Mejares" } ] },
   "r154": { "program": "SHS", "sections": [
-    { "section": "G-11 Matalas", "adviser": "Rechel E. Intal" } ] },
+    { "section": "G-11 Matalas", "adviser": "Rechel E. Intal" },
+    { "section": "G-12 Ingenuity", "adviser": "Arthurmie J. Caitor" } ],
+    "aliases": ["injenuity"] },
   "r155": { "program": "SHS", "sections": [
-    { "section": "G-11 Mapagmatyag", "adviser": "Resa Mae M. Suarez" } ] },
+    { "section": "G-11 Mapagmatiyag", "adviser": "Resa Mae M. Suarez" },
+    { "section": "G-12 Versatility", "adviser": "Angelo Empe" } ],
+    "aliases": ["mapagmatyag"] },
   "r156": { "program": "SHS", "sections": [
-    { "section": "G-11 Mapagmasid", "adviser": "Archie L. Dulce" } ] },
+    { "section": "G-11 Mapagmasid", "adviser": "Archie L. Dulce" },
+    { "section": "G-12 Perseverance", "adviser": "" } ] },
   "r157": { "program": "SHS", "sections": [
-    { "section": "G-11 Mapanuri", "adviser": "Miraflor M. Montecillo" } ] },
+    { "section": "G-11 Mapanuri", "adviser": "Miraflor M. Montecillo" },
+    { "section": "G-12 Prudence", "adviser": "Delia C. Catugo" } ] },
   "r158": { "program": "SHS", "sections": [
-    { "section": "G-11 Mananaliksik", "adviser": "Ace Cardeño" } ] },
+    { "section": "G-11 Mananaliksik", "adviser": "Ace Cardeño" },
+    { "section": "G-12 Tenacity", "adviser": "Sherlyn A. Dutosme" } ] },
   "r159": { "program": "SHS", "notes": "ICT Laboratory 1", "aliases": ["ict lab", "computer lab"] },
   "r160": { "program": "SHS", "notes": "ICT Laboratory 2", "aliases": ["ict lab", "computer lab"] },
   "r161": { "program": "SHS", "notes": "ICT Laboratory 3", "aliases": ["ict lab", "computer lab"] },
@@ -278,11 +296,15 @@ window.ROOM_INFO = {
   "cr-south-1": { "aliases": ["comfort room", "toilet", "restroom", "bathroom"] },
   "cr-south-2": { "aliases": ["comfort room", "toilet", "restroom", "bathroom"] },
   "guidance": { "aliases": ["counselor", "guidance counselor"] },
-  "principal": { "aliases": ["principal", "admin office"] },
+  "principal": { "head": "Dr. Angelina Acao Cacharo", "aliases": ["principal", "admin office"] },
+  "sslg": { "head": "Catelyn S. Ramos", "aliases": ["student government", "sslg"] },
+  "slrmd": { "aliases": ["slrmd", "learning resources"] },
+  "pta": { "notes": "Office staff (usually in the office, not the head): Nerissa M. Cagumbal and Emelyn D. Plastina.", "aliases": ["parents", "pta"] },
+  "mpc-office": { "label": "VNHS MPC Office", "type": "office", "head": "Merriam Depensor Luvido",
+    "notes": "Manager: Raciel Espiritu. Not yet drawn on the map.", "aliases": ["mpc", "cooperative", "multi-purpose cooperative"], "unmapped": true },
   "jhs-registrar": { "aliases": ["records", "enrollment", "registrar", "junior high"] },
   "shs-registrar": { "aliases": ["records", "enrollment", "registrar", "senior high"] },
   "registrar-new": { "notes": "Under construction / upcoming office.", "aliases": ["registrar"] },
-  "library": { "aliases": ["books", "reading"] },
   "comlab": { "aliases": ["computer lab", "ict"] },
   "court": { "aliases": ["gym", "basketball", "assembly", "events"] },
   "quadrangle": { "aliases": ["flag ceremony", "open field", "assembly"] },

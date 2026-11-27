@@ -2,6 +2,8 @@
 
 A school navigation website with an interactive 2D campus map, a searchable room directory, and walking directions.
 
+**New here?** Read the [User Guide](GUIDE.md) for how to use the map, search, directions and the Admin page.
+
 ## Run it
 
 There is no build step. Open `index.html` in a browser, or upload the whole folder to any static web host (school server, GitHub Pages, Netlify, etc.).
@@ -46,9 +48,11 @@ sw.js, manifest.webmanifest   offline support / installable app
 
 ## Assumptions to double-check
 
-- Room numbers were matched to map labels: Room 31 = G7 Curriculum Office, 58 = G8 Curriculum Office,
-  67 = Science Dept. Office, 78 = G9 Curriculum Office, 85 = Filipino Dept. Office, 95 = G10 Curriculum Office,
-  102 = VNHS Care Center, 103 = Clinic.
+- Room numbers of offices (from the school's office list): 6 = Bag Procurement Office, 7 = Supply Office,
+  31 = G7 Faculty Room, 58 = G8 Curriculum Office, 67 = Science Dept. Office, 77 = also the Office of the Prefect of Discipline,
+  78 = G9 Faculty Room, 84 = English Dept. Office, 85 = Filipino Dept. Office, 95 = G10 Faculty Room,
+  102 = VNHS Care Center, 103 = Clinic, 108 = Library, 109 = Data Center, 110 = VNHS HD Project Hub.
 - Building names "SPA Building", "SPFL Building", "SHS Building", "SHS North Building" and "Library Building" were inferred. Edit them in Admin if needed.
-- Room 128 is not on the drawing. It appears in the directory as "not on map".
+- Room 13 (Garment Room), Room 128 and the VNHS MPC Office are not on the drawing. They appear in the directory as "not on map".
+  To name a place that isn't on the map, give it `label` and `type` in `js/room-info.js`.
 - Distances assume the whole map is about 240 m wide (see `MPU` in `js/app.js`).
